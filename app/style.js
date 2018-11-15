@@ -94,5 +94,8 @@ img {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+.hiding{
+    display:none;
 } 
 `;
