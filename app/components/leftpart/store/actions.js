@@ -16,3 +16,22 @@ export const toggle=(data)=>{
    }
 
 }
+
+
+const switchType=(data)=>({
+    type:constans.SWITCH_ITEM,
+    value:fromJS(data)
+})
+
+const updateIndex=(index)=>({
+    type:constans.UPDATE_INDEX,
+    value:index
+})
+
+export const switchTypeAction=(data)=>{
+    return (dispatch)=>{
+      
+        dispatch(switchType(data.data));
+        dispatch(updateIndex(data.index));
+    }
+}

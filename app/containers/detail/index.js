@@ -58,4 +58,4 @@ DetailPage.contextTypes = {
 }
 
 
-export default connect(mapState, mapDispatch)(DetailPage);
+export default withRouter(connect(mapState, mapDispatch)(DetailPage));

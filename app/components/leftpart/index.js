@@ -52,14 +52,33 @@ class LeftPartComponent extends Component{
        
         const {list,idx} =this.props;
 
-        let flag=list.get(index).get("active");
+        if(idx==index){
 
-        flag=!flag;
-        
-        this.props.toggle({
-            index,
-            flag
-        });
+            let flag=list.get(index).get("active");
+            
+                    flag=!flag;
+                    
+                    this.props.toggle({
+                        index,
+                        flag
+                    });
+
+        }else{
+
+            let data=list.toJS();
+
+            data.forEach((v)=>{
+              v.active=false;
+            })
+
+            data[index].active=true;
+             
+            this.props.switch({
+                data:data,
+                index:index
+            });
+
+        }
 
     }
 
@@ -106,7 +125,10 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
 	toggle(data) {
 	   dispatch(actions.toggle(data));
-	}
+    },
+    switch(data){
+      dispatch(actions.switchTypeAction(data));
+    }
 });
   
 export default connect(mapState, mapDispatch)(LeftPartComponent);

@@ -1,0 +1,1 @@
+export const service_ip="http://m.wayforcloud.com";

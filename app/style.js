@@ -97,5 +97,23 @@ img {
 }
 .hiding{
     display:none;
-} 
+}
+.lt
+{
+ float:left;
+}
+.gt
+{
+float:right;
+}
+.box:after
+{
+ content:"";
+ display:block;
+ clear:both;
+}
+.clear
+{
+ clear:both;
+}
 `;

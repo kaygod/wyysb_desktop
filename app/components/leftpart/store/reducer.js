@@ -69,7 +69,11 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
     switch(action.type){
       case constans.UPDATE_FLAG: 
-          return state.setIn(["list",action.value.index,"active"],action.value.flag);break;             
+          return state.setIn(["list",action.value.index,"active"],action.value.flag);break;
+      case constans.SWITCH_ITEM:
+          return state.set("list",action.value);
+      case constans.UPDATE_INDEX:
+          return state.set("index",action.value);                     
       default: return state; 
     }
 
