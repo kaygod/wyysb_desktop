@@ -9,55 +9,55 @@ const defaultState = fromJS({
         child:[
             {
               name:"服务器",
-              value:""
+              value:"20"
             },
             {
                 name:"主板",
-                value:""
+                value:"11"
             },
             {
                 name:"存储",
-                value:""
+                value:"19"
             },
             {
                   name:"GPU服务器",
-                  value:""
+                  value:"21"
             },
             {
                 name:"CPU",
-                value:""
+                value:"12"
             },
             {
                   name:"内存",
-                  value:""
+                  value:"13"
             },
             {
                 name:"机箱",
-                value:""
+                value:"17"
             },
             {
                   name:"电源",
-                  value:""
+                  value:"16"
             },
             {
                 name:"HDD",
-                value:""
+                value:"15"
             },
             {
                 name:"SSD",
-                value:""
+                value:"14"
             },
             {
                 name:"GPU",
-                value:""
+                value:"277"
             },
             {
                 name:"RAID卡",
-                value:""
+                value:"298"
             },
             {
                 name:"网卡",
-                value:""
+                value:"295"
             }
         ]
     },{

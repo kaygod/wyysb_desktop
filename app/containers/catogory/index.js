@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { post } from "../../constants/util";
+import { post,typeidmap } from "../../constants/util";
+
+import LeftPartComponent from "../../components/leftpart";
 
 class CatagoryPage extends Component{
 
@@ -22,39 +24,40 @@ class CatagoryPage extends Component{
   render(){
    
       return (
-          <CatoryWrapper>
+      <CatoryWrapper>
+          <LeftPartComponent history={this.props.history}/>
+            <div className="right">
 
-       {
-         ((boolean)=>{
-            if(boolean){
-              
-             return (
+                        {
+                    ((boolean)=>{
+                        if(boolean){
+                          
+                        return (
 
-              <div className="tabin">
-                {
-                    this.data.map((item,index)=>{
-                      return (
+                          <div className="tabin">
+                            {
+                                this.data.map((item,index)=>{
+                                  return (
 
-                        <div className={`${item.active?"curr":""}`} onClick="{()=>{this.titleswitch(item,index)}}">{item.type_name}</div>                        
+                                    <div className={`${item.active?"curr":""}`} onClick={()=>{this.titleswitch(item,index)}}>{item.type_name}</div>                        
 
-                      )
-                    })
-                }
-              </div>
+                                  )
+                                })
+                            }
+                          </div>
 
-             )
+                        )
 
-            }else{
-              return;
-            }
-         })(this.alllayer>=3)
-       }        
- 
-       
-       {this.renderContent()}
-  
+                        }else{
+                          return;
+                        }
+                    })(this.alllayer>=3)
+                  }        
+            
+                  
+                  {this.renderContent()}
 
-             
+            </div>           
           </CatoryWrapper>
       ) 
   }
@@ -104,7 +107,8 @@ class CatagoryPage extends Component{
   }
 
   gonextpage(item3){
-     
+    let product_parent_type=typeidmap(this.state.type_id);
+    this.props.history.push(`/product-detail/${product_parent_type}/${item3.type_id}/${item3.type_name}`); 
   }
 
   componentDidMount(){
@@ -140,38 +144,38 @@ class CatagoryPage extends Component{
 
      <div>
         {
-          this.state.data.map((item)=>{
+          this.state.data.map((item,idx)=>{
 
             return (
                  
-            <dl className="pro_list_two" style={{display:item.active?'block':'none'}}>
-              {
-                item.child_list.map((item2)=>{
+            <dl key={idx} className="pro_list_two" style={{display:item.active?'block':'none'}}>
+              { item.child_list && item.child_list.map((item2,i)=>{
+                    
+                                       return (
+                                           
+                                        <dd key={i}>
+                                        <div className={`in_one ${item2.active?"curr":""}`} onClick={()=>{this.listswitch(item2,item.type_id)}}>
+                                          <i className="iconfont icon-xinwenliebiaodianzhui"></i>
+                                          <div>{item2.type_name}</div>
+                                        </div>
+                                        <div className="in_two" style={{display:item.active?'block':'none'}}>
+                                          <ol>
+                                            {
+                                               item2.child_list && item2.child_list.map((item3,index)=>{
+                                                  return (
+                                                    <li  key={index} onClick={()=>{this.gonextpage(item3)}}>{item3.type_name}</li>                                
+                                                  )
+                                               })
+                                            }
+                                          </ol>
+                                        </div>
+                                        </dd>
+                    
+                                       )
+                    
+                          })
 
-                   return (
-                       
-                    <dd>
-                    <div className={`in_one ${item2.active?"curr":""}`} onClick={()=>{this.listswitch(item2,item.type_id)}}>
-                      <i className="iconfont icon-xinwenliebiaodianzhui"></i>
-                      <div>{item2.type_name}</div>
-                    </div>
-                    <div className="in_two" style={{display:item.active?'block':'none'}}>
-                      <ol>
-                        {
-                           item2.child_list.map((item3)=>{
-                              return (
-                                <li onClick={()=>{this.gonextpage(item3)}}>{item3.type_name}</li>                                
-                              )
-                           })
-                        }
-                      </ol>
-                    </div>
-                    </dd>
-
-                   )
-
-                })
-              }
+                }             
             </dl>
 
 
@@ -192,19 +196,19 @@ class CatagoryPage extends Component{
         <dl className="pro_list_two">
         <dt>{this.state.type_name}</dt>
         {
-           this.state.data.map((item)=>{
+           this.state.data.map((item,idx)=>{
              return (
                 
-              <dd>
+              <dd key={idx}>
                 <div className={`n_one ${item.active?"curr":""}`} onClick={()=>{this.secondlistswitch(item)}}>
                   <i className="iconfont icon-xinwenliebiaodianzhui"></i>
                   <div>{item.type_name}</div>
                 </div>
                 <div className="in_two" style={{display:item.active?'block':'none'}}>
                   {
-                    item.child_list.map((item2)=>{
+                    item.child_list && item.child_list.map((item2,i)=>{
                        return (
-                        <ol onClick={()=>{this.gonextpage(item2)}}>
+                        <ol key={i} onClick={()=>{this.gonextpage(item2)}}>
                           <li>{item2.type_name}</li>
                         </ol>
                        )
@@ -434,4 +438,4 @@ CatagoryPage.contextTypes = {
 }
 
 
-export default connect(null, null)(CatagoryPage);
+export default withRouter(connect(null, null)(CatagoryPage));

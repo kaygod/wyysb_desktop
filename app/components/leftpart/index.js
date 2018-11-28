@@ -83,14 +83,13 @@ class LeftPartComponent extends Component{
     }
 
     getChild(v,index){  
-       
       const {list,idx} =this.props;
         
         if(v.get("child") && list.get(idx).get("active")){
 
 
             let list=v.get("child").map((v2,index)=>{
-                return (<li key={index}>{v2.get("name")}</li>);  
+                return (<li key={index} onClick={()=>{this.jump(v2.get("value"))}}>{v2.get("name")}</li>);  
               }) 
             
             let class_name="child";
@@ -113,6 +112,14 @@ class LeftPartComponent extends Component{
 
        
 
+    }
+
+    jump(value){
+     this.props.history.replace(`/catagory${value}`);
+    }
+
+    componentDidMount(){
+        console.log(this.props.history);
     }
 
 }

@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 export const CatoryWrapper = styled.div`
     
+    
+    .n_one {
+      display: -webkit-box;
+      display: -webkit-flex; 
+      display: -ms-flexbox;
+      display: flex;
+      padding: 2.5% 0;
+     }
     .pro_list_one{
     padding: 0 4%;
     dt{
@@ -89,8 +97,13 @@ export const CatoryWrapper = styled.div`
     }
   }
   
-  
+    
+  .right{
+          
+          margin-left:100px;
+          background-color: #fff;
 
+  }  
     
 `;
 

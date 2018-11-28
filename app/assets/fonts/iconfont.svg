@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="zengjia" unicode="&#58957;" d="M939.939 436.927h-377.6v375.553h-100.284v-375.553h-377.6v-100.284h377.6v-379.647h100.284v379.647h377.6z"  horiz-adv-x="1024" />
+
+    
+    <glyph glyph-name="delete" unicode="&#59041;" d="M128 441.6h768v-108.8h-768z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

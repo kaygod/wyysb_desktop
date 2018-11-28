@@ -29,7 +29,7 @@ class App extends Component{
       return (
           <IndexWrapper>
 
-             <LeftPartComponent/>
+             <LeftPartComponent history={this.props.history}/>
 
         <div className="right">
                  
