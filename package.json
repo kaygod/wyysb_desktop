@@ -58,7 +58,7 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "维云云设备",
     "appId": "org.develar.ElectronReact",
     "files": [
       "dist/",

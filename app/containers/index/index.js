@@ -43,12 +43,6 @@ class App extends Component{
                   <span>Servers</span>
                 </div>
               </a>
-              <a  onClick={()=>{this.jump(11)}}>
-                  <div>
-                    <p><img src={mainboard} alt=""/></p>
-                    <span>Boards</span>
-                  </div>
-              </a>
               <a  onClick={()=>{this.jump(19)}}>
                 <div>
                   <p><img src={storage} alt=""/></p>
