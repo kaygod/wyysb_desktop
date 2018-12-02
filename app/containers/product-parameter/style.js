@@ -10,7 +10,72 @@ export const ProductParameterWrapper = styled.div`
           padding-top:20px;
 
   }
+
+  .product_detail_content .product_detail_header .product_detail_header_body.scroll{
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .rightimgs img{
+      width:127px;
+      height:62px;
+    }
   
+  .product_detail_content{
+            width:100%;
+              .product_detail_header{
+                width:100%;
+                padding:14px 16px 0px 16px;
+                background-color: #fff;
+                .product_detail_header_body{
+                  padding-bottom: 10px;
+                  width:100%;
+                  border-bottom:1px solid transparent;
+                  background-color: #fff;
+                  position: relative;
+                  .rightimgs{
+                    width: 127px;
+                    height: 62px;
+                    overflow: hidden;
+                    position: relative;
+                       div{
+                         height: 62px;
+                         position: absolute;
+                         left:0px;
+                       }
+                  }
+                  &.line{
+                    border-bottom:1px solid #e7e7e7;
+                  }
+                  p{
+                    width:150px;
+                    font-size: 16px;
+                    color:#333;
+                  }
+                  .gt{
+                    img{
+                      width:127px;
+                      height:62px;
+                      float: left;
+                    }
+                  }
+                  .btn {
+                    width:30px;
+                    height: 36px;
+                    position: absolute;
+                    right:-20px;
+                    top:6px;
+                    text-align: center;
+                    line-height: 36px;
+                    img{
+                      width: 55%;
+                      height: 63%;
+                    }
+                  }
+                }
+              }
+          }
+
+
   .iconfont{
     color:#fff;
   }

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const CatoryWrapper = styled.div`
     
+  
     
     .n_one {
       display: -webkit-box;
@@ -96,14 +97,11 @@ export const CatoryWrapper = styled.div`
       background-color: #0064d3;
     }
   }
-  
-    
-  .right{
-          
+   
+  .right {        
           margin-left:100px;
           background-color: #fff;
+  } 
 
-  }  
-    
 `;
 

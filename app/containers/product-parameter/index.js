@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { post } from "../../constants/util";
 import LeftPartComponent from "../../components/leftpart";
+import  WaitComponent from "../../components/wait";
+
+let default2 = require('../../assets/images/default2.jpg');
 
 class ProductParameterPage extends Component{
 
@@ -24,16 +27,23 @@ class ProductParameterPage extends Component{
       curidx:1,
       totalidx:1,
       allscrollimgs:[],
-      hasline:false
+      hasline:false,
+      loaded:false
     }
   }
   
   render(){
+     
+    if(this.state.loaded){
 
       return (
         <ProductParameterWrapper>
             <LeftPartComponent history={this.props.history}/>
               <div className="right">
+                         
+                            {this.renderHeader()}
+
+
                               <div className="product_detail_item">
                                 <div className="product_detail_item_title box" onClick={this.toggle} data-state="on">
                                   <div className="lt">基本参数</div>
@@ -89,11 +99,44 @@ class ProductParameterPage extends Component{
       
               </div>           
         </ProductParameterWrapper>
-      ) 
+      )
+    }else{
+          
+      return (
+        
+       <ProductParameterWrapper>
+          <LeftPartComponent history={this.props.history}/>
+          <div className="right">
+             <WaitComponent show={this.state.loaded} />
+          </div>          
+       </ProductParameterWrapper>
+     )
+
+    }  
+      
   }
 
   componentDidMount(){
     this.init();
+  }
+
+  renderHeader(){
+          
+    return (
+          <div className="product_detail_content">
+              <div className="product_detail_header">
+                <div>
+                  <p className="lt">{this.state.product_name}</p>
+                    <div className="rightimgs gt">
+                      <div className="box">
+                        <img src={this.state.icon?this.state.icon:default2} />
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div className="clear"></div>
+          </div>
+        )
   }
 
 
@@ -197,7 +240,8 @@ class ProductParameterPage extends Component{
 
     await this.setStateAsync({
       product_parent_type,
-      product_id
+      product_id,
+      loaded:false
     })
 
     this.service_init(product_parent_type,product_id);
@@ -256,7 +300,8 @@ class ProductParameterPage extends Component{
             base_parameters,
             product_parameters,
             rightarrow,
-            bigimgs
+            bigimgs,
+            loaded:true
           }) 
 
       })

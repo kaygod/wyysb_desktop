@@ -5,8 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { post,typeidmap } from "../../constants/util";
-
+import  WaitComponent from "../../components/wait";
 import LeftPartComponent from "../../components/leftpart";
+import { clearTimeout, setTimeout } from "timers";
 
 class CatagoryPage extends Component{
 
@@ -17,49 +18,62 @@ class CatagoryPage extends Component{
      product_parent_type:0,
      type_name:"",
      alllayer:0,//总共有几级
-     data:null//总数据的类型
+     data:null,//总数据的类型
+     loaded:false
     }
   }
   
   render(){
-   
-      return (
-      <CatoryWrapper>
-          <LeftPartComponent history={this.props.history}/>
+       if(this.state.loaded){
+         return (
+          <CatoryWrapper>
+            <LeftPartComponent history={this.props.history}/>
             <div className="right">
-
-                        {
-                    ((boolean)=>{
-                        if(boolean){
-                          
-                        return (
-
-                          <div className="tabin">
-                            {
-                                this.data.map((item,index)=>{
-                                  return (
-
-                                    <div className={`${item.active?"curr":""}`} onClick={()=>{this.titleswitch(item,index)}}>{item.type_name}</div>                        
-
-                                  )
-                                })
-                            }
-                          </div>
-
-                        )
-
-                        }else{
-                          return;
-                        }
-                    })(this.alllayer>=3)
-                  }        
-            
+                                      
+                              {
+                                this.state.alllayer>=3
+                                ?
+                               (
+                                  
+                                                <div className="tabin">
+                                                    {
+                                                        this.state.data.map((item,index)=>{
+                                                             return (
+                                  
+                                                                <div className={`${item.active?"curr":""}`} onClick={()=>{this.titleswitch(item,index)}}>{item.type_name}</div>                        
+                                  
+                                                                )
+                                                               })
+                                                    }
+                                               </div>
+                                  
+                                ):null
                   
-                  {this.renderContent()}
+                              }        
+                                                 
+                              {this.renderContent()}
+            
+                        </div>           
+             )
 
-            </div>           
+            </CatoryWrapper>   
+
+         )
+
+
+       }else{  
+
+        return (
+           
+          <CatoryWrapper>
+             <LeftPartComponent history={this.props.history}/>
+             <div className="right">
+                <WaitComponent show={this.state.loaded} />
+             </div>          
           </CatoryWrapper>
-      ) 
+        )
+
+       }
   }
 
   titleswitch(item,index){
@@ -87,11 +101,14 @@ class CatagoryPage extends Component{
     let data=[...this.state.data];
     this.setState({
       data
+    },()=>{
+
+      if(item2.active==true && item2.child_list===undefined && item2.flag!==1)
+      {
+        this.renderNext(item2.type_id,2,parentid);
+      }
+
     })
-    if(item2.active==true && item2.child_list===undefined && item2.flag!==1)
-    {
-      this.renderNext(item2.type_id,2,parentid);
-    }
   }
 
   secondlistswitch(item){
@@ -102,7 +119,7 @@ class CatagoryPage extends Component{
     })
     if(item.active==true && item.child_list===undefined && item.flag!==1)
     {
-      this.service.renderNext(item.type_id,1,1);
+      this.renderNext(item.type_id,1,1);
     }
   }
 
@@ -112,8 +129,14 @@ class CatagoryPage extends Component{
   }
 
   componentDidMount(){
-     this.init();
+     let type_id=this.context.router.route.match.params.id;
+     this.init(type_id);
   }
+
+  componentWillReceiveProps(nextProps){
+    this.init(nextProps.match.params.id);
+  }
+
    
   setStateAsync=(state)=>{
     
@@ -123,19 +146,24 @@ class CatagoryPage extends Component{
  
  }
 
-  async init(){
-    let type_id=this.context.router.route.match.params.id;
-    await this.setStateAsync({
-      type_id:type_id
-    })
-    this.renderFun();  
+init(type_id){
+      this.setState({
+          type_id:type_id,
+          loaded:false
+      },()=>{
+     
+        this.renderFun();
+             
+      })
+     
+       
   }
 
 
   renderContent(){
 
      let alllayer=this.state.alllayer.toString();
-
+    console.log(this.state.data);
      switch(alllayer)
  {
    case "3":
@@ -264,23 +292,25 @@ renderFun(){
              if(res.total_level==1)//只有一层
              {
                  let data=res.child_list;
-                 await _this.setStateAsync({
-                  type_name,
-                  product_parent_type,
-                  alllayer,
-                  data
-                 })
+                  _this.setState({
+                    type_name,
+                    product_parent_type,
+                    alllayer,
+                    data,
+                    loaded:true
+                   })                
              }else if(res.total_level==2)//有2层
              {
                res.child_list.forEach((item)=>{
                   item.active=false;
                })
                let data=res.child_list;
-               await _this.setStateAsync({
+              _this.setState({
                 type_name,
                 product_parent_type,
                 alllayer,
-                data
+                data,
+                loaded:true
                }) 
               
              }else if(res.total_level==3)//有3层
@@ -297,7 +327,8 @@ renderFun(){
                   type_name,
                   product_parent_type,
                   alllayer,
-                  data
+                  data,
+                  loaded:true
                  }) 
                  this.renderNext(res.child_list[0].type_id,1,1);           
                }

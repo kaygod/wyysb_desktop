@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { post } from "../../constants/util";
 import LeftPartComponent from "../../components/leftpart";
+import  WaitComponent from "../../components/wait";
 
 class ProductDetailPage extends Component{
 
@@ -24,7 +25,8 @@ class ProductDetailPage extends Component{
       addanimate:"editwarn1",
       datalist:[],
       alltypeid:[],//对某品牌进行查询获得的所有的类型id的集合
-      comparelist:[]
+      comparelist:[],
+      loaded:false
 
     }
     
@@ -33,6 +35,9 @@ class ProductDetailPage extends Component{
   }
   
   render(){
+
+    if(this.state.loaded){
+      
       return (
         <ProductDetailWrapper>
             <LeftPartComponent history={this.props.history}/>
@@ -42,19 +47,13 @@ class ProductDetailPage extends Component{
               <ul className="procompare_list">
                   
                   {
-                    ((flag)=>{
-                      if(flag){
-                        return (
-                            
-                          <li className="procompare_title">
-                             {this.state.product_name}
-                          </li>
-
-                        )
-                      }else{
-                        return null;
-                      }
-                    })(this.state.product_name?true:false)
+                    this.state.product_name
+                    ?
+                    (
+                      <li className="procompare_title">
+                        {this.state.product_name}
+                      </li>
+                    ):null
                   }
                
                   {
@@ -70,6 +69,22 @@ class ProductDetailPage extends Component{
               </div>           
         </ProductDetailWrapper>
       ) 
+
+    }else{
+
+      return (
+        
+       <ProductDetailWrapper>
+          <LeftPartComponent history={this.props.history}/>
+          <div className="right">
+             <WaitComponent show={this.state.loaded} />
+          </div>          
+       </ProductDetailWrapper>
+     )
+
+    }  
+    
+     
   }
 
   componentDidMount(){
@@ -134,7 +149,8 @@ class ProductDetailPage extends Component{
     await this.setStateAsync({
       product_name,
       product_parent_type,
-      product_id
+      product_id,
+      loaded:false
     })
 
     this.service_init();
@@ -181,7 +197,8 @@ class ProductDetailPage extends Component{
 
               _this.setState({
                 datalist,
-                finalpage
+                finalpage,
+                loaded:true
               })
                   
            })

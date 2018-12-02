@@ -12,10 +12,6 @@ const defaultState = fromJS({
               value:"20"
             },
             {
-                name:"主板",
-                value:"11"
-            },
-            {
                 name:"存储",
                 value:"19"
             },
@@ -59,9 +55,67 @@ const defaultState = fromJS({
                 name:"网卡",
                 value:"295"
             }
-        ]
+        ],
+        url:"/catagory/"
     },{
-        parent:"行业咨询"
+        parent:"行业咨询",
+        active:false,
+        child:[
+            {
+                value:0,
+                name:"热点"
+              },
+            {
+                value:6,
+                name:"板卡"
+              },{
+                value:2,
+                name:"机箱电源"
+              },{
+                value:19,
+                name:"HDD"
+              },{
+                value:10,
+                name:"显卡"
+              },{
+                value:11,
+                name:"内存"
+              },{
+                value:1,
+                name:"SSD"
+              },{
+                value:7,
+                name:"CPU"
+              },{
+                value:13,
+                name:"交换机"
+              },{
+                value:14,
+                name:"路由器"
+              },{
+                value:20,
+                name:"UPS"
+              },{
+                value:4,
+                name:"服务器"
+              },{
+                value:15,
+                name:"存储"
+              },{
+                value:16,
+                name:"GPU服务器"
+              },{
+                value:17,
+                name:"ASIC矿机"
+              },{
+                value:21,
+                name:"GPU/CPU矿机"
+              },{
+                value:18,
+                name:"云计算"
+              }
+        ],
+        url:"/news/"
     }],
     index:0
 });

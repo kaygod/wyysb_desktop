@@ -89,7 +89,7 @@ class LeftPartComponent extends Component{
 
 
             let list=v.get("child").map((v2,index)=>{
-                return (<li key={index} onClick={()=>{this.jump(v2.get("value"))}}>{v2.get("name")}</li>);  
+                return (<li key={index} onClick={()=>{this.jump(v2.get("value"),v)}}>{v2.get("name")}</li>);  
               }) 
             
             let class_name="child";
@@ -114,8 +114,8 @@ class LeftPartComponent extends Component{
 
     }
 
-    jump(value){
-     this.props.history.replace(`/catagory${value}`);
+    jump(value,item){
+     this.props.history.replace(item.get("url")+value);
     }
 
     componentDidMount(){
